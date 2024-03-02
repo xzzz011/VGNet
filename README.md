@@ -6,7 +6,6 @@
 ## Abstract
 *The reuse of 3D CAD models is crucial for industrial manufacturing as it shortens development cycles and reduces costs. Deep learning based 3D model retrieval has made significant progress. There are many representations for 3D models, among which multi-view representation has demonstrated superior retrieval performance. However, directly applying these 3D model retrieval approaches to 3D CAD model retrieval may result in issues, such as losing engineering semantic and structural information. In this paper, we find that multi-view and B-rep can complement each other and therefore propose the VGNet (View Graph neural Network), which effectively combines multi-view and B-rep to accomplish 3D CAD model retrieval. More specifically, based on the characteristics of the regular shape of 3D CAD models and the richness of attribute information in the B-rep attribute graph, we design two feature extraction networks for each modality separately. Meanwhile, to explore the latent relationship between multi-view and B-rep attribute graph, the multi-head attention enhance module is designed. Furthermore, the multimodal fusion module is adopted to make the joint representation of 3D CAD models more discriminative by using a correlation loss function. Experiments are carried out on the real manufacturing 3D CAD dataset and public dataset to validate the effectiveness of the proposed approach.*
 
-Details about the implementation and the obtained results can be found in the `docs` folder.
 
 ---
 
@@ -15,17 +14,16 @@ Details about the implementation and the obtained results can be found in the `d
 1. Create Conda virtual environment:
 
     ```
-    conda create --name 3D_STEP_Classification python=3.8
-    conda activate 3D_STEP_Classification
+    conda create --name VGNet python=3.8
+    conda activate VGNet
     ```
     
 2. Clone this repository:
     ```
-    git clone https://github.com/divanoLetto/3D_STEP_Classification
+    git clone https://github.com/xzzz011/VGNet
     ```
-3. Install CUDA Toolkit version 11.3 from the [official site](https://developer.nvidia.com/cuda-11.3.0-download-archive).
-
-4.  Install the following requirements:
+    
+3.  Install the following requirements:
     ```
     conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch
     conda install pyg -c pyg
@@ -35,8 +33,6 @@ Details about the implementation and the obtained results can be found in the `d
     conda install -c anaconda scikit-image
     conda install -c conda-forge pythonocc-core
     ```
-
-5. Finally, make sure to obtain the [Traceparts STEP dataset](https://drive.google.com/drive/folders/1jV1B5Y8XmGY-XhjildX2BdYTEFtLK5XQ?usp=sharing), extract the STEP models and save them in the `/Datasets/` folder.
 
 # Usage
 
