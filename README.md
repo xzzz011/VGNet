@@ -1,5 +1,5 @@
 # VGNet: Multimodal Feature Extraction and Fusion Network for 3D CAD Model Retrieval
-## Authors:Feiwei Qin,Gaoyang Zhan,Meie Fang,C.L. Philip Chen, Ping Li
+## Authors:Feiwei Qin, Gaoyang Zhan, Meie Fang, C.L.Philip Chen, Ping Li
 #### Università degli Studi di Firenze
 
 ![](https://img.shields.io/github/contributors/divanoLetto/3D_STEP_Classification?color=light%20green) ![](https://img.shields.io/github/repo-size/divanoLetto/3D_STEP_Classification)
