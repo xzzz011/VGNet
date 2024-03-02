@@ -29,7 +29,6 @@
     conda install -c conda-forge tensorboardx
     conda install -c anaconda scikit-learn
     conda install -c conda-forge matplotlib
-    conda install -c conda-forge pythonocc-core
     ```
 
 # Usage
