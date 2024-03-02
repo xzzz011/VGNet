@@ -14,7 +14,7 @@
 1. Create Conda virtual environment:
 
     ```
-    conda create --name VGNet python=3.8
+    conda create --name VGNet python=3.7
     conda activate VGNet
     ```
     
@@ -25,8 +25,7 @@
     
 3.  Install the following requirements:
     ```
-    conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch
-    conda install pyg -c pyg
+    conda install pytorch==1.11.0 torch-geometric=2.3.1 torchaudio==0.13.1 -c pytorch
     conda install -c conda-forge tensorboardx
     conda install -c anaconda scikit-learn
     conda install -c conda-forge matplotlib
