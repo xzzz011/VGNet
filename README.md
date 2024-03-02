@@ -25,7 +25,7 @@
     
 3.  Install the following requirements:
     ```
-    conda install pytorch==1.11.0 torch-geometric=2.3.1 torchaudio==0.13.1 -c pytorch
+    conda install pytorch==1.11.0 torch-geometric=2.3.1 torchvision==0.14.1 torchaudio==0.13.1 -c pytorch
     conda install -c conda-forge tensorboardx
     conda install -c anaconda scikit-learn
     conda install -c conda-forge matplotlib
