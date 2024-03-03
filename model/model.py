@@ -39,9 +39,9 @@ class WrapperModel(BaseModel):
 
 
 def my_collate_fun(data):
-    new_data = [[], [], [], [], [], [], [], []]
+    new_data = [[], [], [], [], [], [], [], [], []]
     for old in data:
-        for i in range(8):
+        for i in range(9):
             new_data[i].append(old[i])
     data = new_data
 
