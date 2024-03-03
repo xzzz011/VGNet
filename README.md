@@ -32,4 +32,11 @@
     ```
 
 # Usage
+The program implements the classification and retrieval of 3D models through an approach based on graphs obtained from STEP files and the MVCNN approach based on multiple 2D views.
+
+To run the classification and retrieval task on the dataset run the script:   
+```
+$ python main.py
+```
+It takes 5 arguments: `-m_train_path` indicates the path of the view dataset, `-s_train_path` specifies the path of the graph dataset, `-lr` sets the strating learning rate, `-weight_decay` sets the weight decay rate, `-bs` sets the batch size.
 
