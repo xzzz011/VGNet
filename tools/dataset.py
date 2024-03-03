@@ -77,7 +77,6 @@ class MultiModalDataset(torch.utils.data.Dataset):
         return int(len(self.filepaths) / self.num_views)
 
     def __getitem__(self, idx):
-
         # m_dataset
         path = self.filepaths[idx * self.num_views]
         class_name = path.split('/')[-2]
@@ -91,15 +90,18 @@ class MultiModalDataset(torch.utils.data.Dataset):
             imgs.append(im)
 
         # s_dataset
-        keys = ['edge_index', 'x', 'y', 'name']
+        keys = ['edge_index', 'x', 'y', 'edge_attr', 'name']
         for key in keys:
             slices = self.slices[key]
+            # print(slices)
             if key == 'edge_index':
                 item = self.edge_index
             elif key == 'x':
                 item = self.x
             elif key == 'y':
                 item = self.y
+            elif key == 'edge_attr':
+                item = self.edge_attr
             else:
                 item = self.name
 
@@ -120,29 +122,35 @@ class MultiModalDataset(torch.utils.data.Dataset):
             elif key == 'y':
                 y = self.y[s]
                 batch = self.num_nodes.clone().detach()[s].tolist()
+            elif key == 'edge_attr':
+                edge_attr = self.edge_attr[s]
             else:
                 name = self.name[s]
 
         return (class_id, torch.stack(imgs), self.filepaths[idx * self.num_views:(idx + 1) * self.num_views],
-                edge_index, x, y, name, batch)
+                edge_index, x, y, name, batch, edge_attr)
 
-    def get_train_test_dataset(self):
-        total = self.y.shape[0]
+      def get_train_test_dataset(self):
+        total = self.y.shape[0] 
         total_index = [index for index in range(total)]
         train_index, test_index = train_test_split(total_index, test_size=0.2)
         train_index.sort()
         test_index.sort()
         train_dataset = self.get_sub_dataset(train_index)
         test_dataset = self.get_sub_dataset(test_index)
+        # print(train_dataset)
+        # sys.exit(0)
         return train_dataset, test_dataset
 
-    def get_sub_dataset(self, indexes):
+     def get_sub_dataset(self, indexes):
+
         dataset = MultiModalDataset()
-        dataset.filepaths, dataset.root_dir, dataset.classnames = [], self.root_dir, self.classnames
-        dataset.num_views, dataset.name_dict, dataset.transform = self.num_views, self.name_dict, self.transform
+        dataset.filepaths, dataset.root_dir, dataset.classnames = [], self.root_dir, self.classnames 
+        dataset.num_views, dataset.transform = self.num_views, self.transform
         dataset.rot_aug, dataset.scale_aug, dataset.test_mode = self.rot_aug, self.scale_aug, self.test_mode
-        dataset.y, dataset.x, dataset.name, dataset.edge_index = [], [], [], []
-        edge_index, x, y, name, num_nodes = [0], [0], [0], [0], []
+        dataset.name_dict = self.name_dict  # 处理step数据
+        dataset.y, dataset.x, dataset.name, dataset.edge_index, dataset.edge_attr= [], [], [], [], []
+        edge_index, edge_attr, x, y, name, num_nodes = [0], [0], [0], [0], [0], []
         idx = 1
         for index in indexes:
             dataset.y.append(self.y[index])
@@ -150,11 +158,11 @@ class MultiModalDataset(torch.utils.data.Dataset):
             num_nodes.append(self.num_nodes[index])
             for i in range(index * 12, index * 12 + 12):
                 dataset.filepaths.append(self.filepaths[i])
-
             for i in range(self.slices['edge_index'][index], self.slices['edge_index'][index + 1]):
                 dataset.edge_index.append(torch.tensor([self.edge_index[0][i], self.edge_index[1][i]]))
+                dataset.edge_attr.append(torch.tensor(self.edge_attr[i]))
             edge_index.append(len(dataset.edge_index))
-
+            edge_attr.append(len(dataset.edge_attr))
             for i in range(self.slices['x'][index], self.slices['x'][index + 1]):
                 dataset.x.append(self.x[i])
             x.append(len(dataset.x))
@@ -162,12 +170,15 @@ class MultiModalDataset(torch.utils.data.Dataset):
             name.append(idx)
             idx += 1
 
+
         dataset.num_nodes = torch.tensor(num_nodes)
         dataset.edge_index = torch.stack(dataset.edge_index, -1)
+        dataset.edge_attr = torch.stack(dataset.edge_attr, dim=0)
         dataset.x = torch.stack(dataset.x)
         dataset.y = torch.tensor(dataset.y)
         dataset.name = torch.tensor(dataset.name)
+        # print(dataset.edge_attr)
         dataset.slices = {'edge_index': torch.tensor(edge_index), 'x': torch.tensor(x), 'y': torch.tensor(y),
-                          'name': torch.tensor(name)}
+                          'name': torch.tensor(name), 'edge_attr': torch.tensor(edge_attr)}
 
         return dataset
