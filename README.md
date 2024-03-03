@@ -31,7 +31,7 @@
     conda install -c conda-forge matplotlib
     ```
 
-4. Finally, make sure to obtain the [dataset]([https://drive.google.com/drive/folders/1jV1B5Y8XmGY-XhjildX2BdYTEFtLK5XQ?usp=sharing]), extract the STEP models and save them in the `/Datasets/` folder.
+4. Finally, make sure to obtain the [dataset](https://drive.google.com/drive/folders/1jV1B5Y8XmGY-XhjildX2BdYTEFtLK5XQ?usp=sharing), extract the STEP models and save them in the `/Datasets/` folder.
 
 # Usage
 The program combines multiple views data and B-rep data to achieve 3D CAD model retrieval.
