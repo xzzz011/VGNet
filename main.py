@@ -9,7 +9,7 @@ import joblib
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 parser = argparse.ArgumentParser()
 parser.add_argument("-m_train_path", type=str, default="/mnt/zgy/dataset/MV")
-parser.add_argument("-s_train_path", type=str, default="/mnt/zgy/dataset/Graph")
+parser.add_argument("-s_train_path", type=str, default="mnt/zgy/dataset/Graph")
 parser.add_argument("-lr", type=float, default=0.0001)
 parser.add_argument("-weight_decay", type=float, default=0.001)
 parser.add_argument("-bs", "--batchSize", type=int, help="Batch size for the second stage", default=8)
